@@ -3,6 +3,7 @@ import pylab
 import time
 import os
 
+#TODO: Change this accordingly
 scene = Scene.create('/home/intergalactic-mammoth/FILES/UNI/TUM/HiWi-Thurey/TUM_Logo/phiflow/scene')
 savedir = 'imgs/scene_%d/'
 
@@ -22,37 +23,37 @@ while True:
 
 res = 128
 rt = 2      #inflow rate
-bf = 0.005    #buoyancy factor
+bf = 0.00    #buoyancy factor
 frames = 100
 step_sz = 0.5
 obs = 0
-speed = 0.1
+speed = 0.035
 
 def T_inflow(time):
 
-    val = 0.3*res+0.3*res*(time*speed)
+    val = 0.3*res+res*(time*speed)
 
-    threshold = 0.6*1.5*res 
+    threshold = 0.6*res 
 
     if val < threshold:
         return Sphere([0.8*res, val], radius = 0.0125*res)
     else:
-        return Sphere([0.8*res-0.8*res*(time*speed*2), threshold], radius = 0.0125*res)
+        return Sphere([0.8*res-0.02*res*(time*speed), threshold], radius = 0.0125*res)
 
 def M_inflow(time):
 
     #movement of flow in X dir
-    valX = 1.1*res-1.1*res*(time*speed)
+    valX = 1.1*res-0.015*res*(time*speed*8)
     
     #movement of flow in Y dir
-    valY = 0.2*res + 0.2*res*(time*speed)
+    valY = 0.2*res + res*(time*speed)
 
-    threshold = 0.8*1.5*res 
+    threshold = 0.8*res 
 
     if valY < threshold:
         return Sphere([valY, 1.1*res], radius = 0.0125*res)
     else:
-        return Sphere([0.8*res, valX], radius = 0.0125*res)
+        return Sphere([threshold, valX], radius = 0.0125*res)
 
 world = World()
 fluid = world.add(Fluid(Domain([res, int(1.5*res)], boundaries=OPEN), buoyancy_factor=bf), physics=IncompressibleFlow())
@@ -75,7 +76,6 @@ for frame in range(frames):
     save_name = savedir + plt_name + '.png'
     pylab.savefig(save_name % (num, frame, bf*10, rt*10, step_sz*100), bbox_inches='tight')
     pylab.show()
-
 
 
 print('Exiting simulation...')
