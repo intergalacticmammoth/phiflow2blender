@@ -5,7 +5,7 @@ import os
 
 #TODO: Change this accordingly
 scene = Scene.create('/home/intergalactic-mammoth/FILES/UNI/TUM/HiWi-Thurey/TUM_Logo/phiflow/scene')
-savedir = 'imgs/scene_%d/'
+savedir = 'imgs/constricted/scene_%d/'
 
 num = 0
 
@@ -22,47 +22,25 @@ while True:
 
 
 res = 128
-rt = 4      #inflow rate
+rt = 5      #inflow rate
 bf = 0.05    #buoyancy factor
 frames = 100
 step_sz = 0.5
-obs = 0
+obs = 1
 speed = 0.035
 
-def T_inflow(time):
-
-    val = 0.3*res+res*(time*speed)
-
-    threshold = 0.6*res 
-
-    if val < threshold:
-        return Sphere([0.8*res, val], radius = 0.0125*res)
-    else:
-        return Sphere([0.8*res-0.02*res*(time*speed), threshold], radius = 0.0125*res)
-
-def M_inflow(time):
-
-    #movement of flow in X dir
-    valX = 1.1*res-0.015*res*(time*speed*8)
-    
-    #movement of flow in Y dir
-    valY = 0.2*res + res*(time*speed)
-
-    threshold = 0.8*res 
-
-    if valY < threshold:
-        return Sphere([valY, 1.1*res], radius = 0.0125*res)
-    else:
-        return Sphere([threshold, valX], radius = 0.0125*res)
 
 world = World()
-fluid = world.add(Fluid(Domain([res, int(1.5*res)], boundaries=OPEN), velocity=3.0, buoyancy_factor=bf), physics=IncompressibleFlow())
-world.add(Inflow(T_inflow(0), rate = rt), physics=GeometryMovement(T_inflow))
-world.add(Inflow(M_inflow(0), rate = rt), physics=GeometryMovement(M_inflow))
+fluid = world.add(Fluid(Domain([int(1.5*res), res], boundaries=CLOSED), velocity=10.0, buoyancy_factor=bf), physics=IncompressibleFlow())
+#world.add(Inflow(Sphere([0.2*res, 0.5*res], radius = 0.025*res), rate = rt))
+world.add(Inflow(box[0.1*res:0.3*res, 0.45*res:0.55*res], rate = rt))
 
 
 if obs:
-    world.add(Obstacle(Sphere(center=[0.7*res,0.5*res], radius=0.0625*res)))
+    world.add(Obstacle(box[0:res, 0:0.35*res]))
+    world.add(Obstacle(box[0:res, 0.65*res:res]))
+    world.add(Obstacle(box[1.2*res:1.5*res, 0:res]))
+
 
 for frame in range(frames):
     
