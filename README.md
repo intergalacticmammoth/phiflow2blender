@@ -11,8 +11,4 @@ You can find and use phiflow here: https://github.com/tum-pbs/PhiFlow/
 
 ![](readme_imgs/tum3D.gif)
 
-The 3D version was rendered using the open-source free software 
-
-[Blender]: https://www.blender.org/
-
-. More details on the rendering soon.
+The 3D version was rendered using the open-source free software [Blender](https://www.blender.org/). More details on the rendering process and setup soon.
