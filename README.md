@@ -1,11 +1,9 @@
 # tum-logo
-A cool simulation using the phiflow differentiable fluid solver.
-
-You can find and use phiflow here: https://github.com/tum-pbs/PhiFlow/ 
+A cool simulation using the [phiflow](https://github.com/tum-pbs/PhiFlow/ ) differentiable fluid solver.
 
 
 
-The obstacles created in the code are numbered the legend below. The black boxes denote inflows and the white spaces are empty domain. Same colored boxes are same sized obstacles.
+The obstacles created in the code are numbered according to the legend below. The black boxes denote inflows and the white spaces are empty domain. Same colored boxes are same sized obstacles.
 
 <img src="readme_imgs/obstacle_numbering_legend.png" width="500" />
 
