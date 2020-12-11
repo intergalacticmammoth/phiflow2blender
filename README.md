@@ -18,12 +18,10 @@ The simulation starts as a blob with zero buoyancy, with only 20 frames.
 ![](readme_imgs/blob32.png)
 *Simulation before optimization*
 
-The target was generated using a 100-frame simulation at res=32 and dt=0.5
+The target was generated using a 100-frame simulation at res=32 and dt=0.5. The optimized density fields were obtained after training for 300 epochs.
 
 ![](readme_imgs/t_sim.png) ![](readme_imgs/t_first.gif)
-          *Target for optimizing the densities*                            *Optimized densities*
 
-The optimized density after 300 epochs
 
 
 ## 3D Version
