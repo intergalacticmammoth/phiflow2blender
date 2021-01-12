@@ -22,7 +22,25 @@ The target was generated using a *100-frame simulation* at res=32 and dt=0.5. Th
 
 ![](readme_imgs/t_sim.png) ![](readme_imgs/t_first.gif)
 
+### Learning the TUM from 3 blobs
 
+Learning the whole TUM proved to be much more difficult. As a target, an image of the logo was used. It was converted to a numpy array in python. An effort has been made for three different resolutions. The current results are shown below.
+
+<img src="readme_imgs/tum_target_32.png" style="zoom:380%;" />
+
+#### Res: 16x24
+
+![](readme_imgs/tum_res08.gif)
+
+#### Res: 32x48
+
+![](readme_imgs/tum_res16.gif)
+
+#### Res: 64x96
+
+![](readme_imgs/tum_res32.gif)
+
+It seems that the higher the resolution, the better the optimization can approximate the target, but also the computational cost increases significantly.
 
 ## 3D Version
 

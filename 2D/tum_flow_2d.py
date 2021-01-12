@@ -21,8 +21,8 @@ while True:
             break
 
 
-res = 256   #TODO: HIGH RESOLUTION! SLOW...
-rt = 5      #inflow rate
+res = 32   #TODO: HIGH RESOLUTION! SLOW...
+rt = 7      #inflow rate
 bf = 0.05    #buoyancy factor
 frames = 500
 step_sz = 0.25
@@ -56,13 +56,14 @@ for frame in range(frames):
     start = time.time()
     world.step(dt=step_sz)
     end = time.time()
+    scene.write(fluid.state, frame=i)
     print('Step %d done, %.3f seconds elapsed' % (frame, end-start))
 
-    pylab.imshow(np.concatenate(fluid.density.data[...,0], axis=1), origin='lower', cmap='magma')
-    plt_name = 'frame%d_bf%d_rt%d_dt%d'
-    save_name = savedir + plt_name + '.png'
-    pylab.savefig(save_name % (num, frame, bf*10, rt*10, step_sz*100), bbox_inches='tight')
-    pylab.show()
+    #pylab.imshow(np.concatenate(fluid.density.data[...,0], axis=1), origin='lower', cmap='magma')
+    #plt_name = 'frame%d_bf%d_rt%d_dt%d'
+    #save_name = savedir + plt_name + '.png'
+    #pylab.savefig(save_name % (num, frame, bf*10, rt*10, step_sz*100), bbox_inches='tight')
+    #pylab.show()
 
 
 print('Exiting simulation...')
