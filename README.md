@@ -26,7 +26,7 @@ The target was generated using a *100-frame simulation* at res=32 and dt=0.5. Th
 
 Learning the whole TUM proved to be much more difficult. As a target, an image of the logo was used. It was converted to a numpy array in python. An effort has been made for three different resolutions. The current results are shown below.
 
-<img src="readme_imgs/tum_target_32.png" style="zoom:380%;" />
+<img src="readme_imgs/tum_target_32.png" width="360" />
 
 #### Res: 16x24
 
