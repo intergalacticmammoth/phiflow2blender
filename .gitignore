@@ -138,5 +138,5 @@ dmypy.json
 /rendering
 
 #Numpy arrays
-.npy
-.npz
+*.npy
+*.npz
