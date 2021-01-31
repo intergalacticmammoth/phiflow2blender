@@ -1,7 +1,7 @@
 from phi.tf.flow import *  # Causes deprecation warnings with TF 1.15
 import pylab
 import numpy as np
-from TUM_flow import TUM_flow
+from .TUM_flow import TUM_flow
 
 #Set parameters
 params_08 = {'res': 8,
@@ -40,7 +40,7 @@ flow_16.build_graphs()
 pylab.imshow(np.concatenate(flow_16.session.run(flow_16.states[5].density).data[...,0], axis=1), origin='lower', cmap='magma')
 pylab.show()
 
-flow_16.set_target('tum/tum_16.png')
+flow_16.set_target('tum_16.png')
 flow_16.train()
 pylab.imshow(np.concatenate(flow_16.session.run(flow_16.states[5].density).data[...,0], axis=1), origin='lower', cmap='magma')
 pylab.show()

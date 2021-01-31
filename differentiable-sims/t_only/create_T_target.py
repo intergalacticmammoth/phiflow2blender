@@ -4,8 +4,8 @@ import time
 import os
 
 #TODO: Change this accordingly
-scene = Scene.create('t_scenes/')
-savedir = 't_vis/scene_%d/'
+scene = Scene.create('target/')
+savedir = 'target/vis/scene_%d/'
 
 num = 0
 
@@ -32,7 +32,6 @@ speed = 0.035
 
 world = World()
 fluid = world.add(Fluid(Domain([int(1.5*res), res], boundaries=CLOSED), velocity=10.0, buoyancy_factor=bf), physics=IncompressibleFlow())
-#world.add(Inflow(Sphere([0.2*res, 0.5*res], radius = 0.025*res), rate = rt))
 world.add(Inflow(box[0.1*res:0.3*res, 0.45*res:0.55*res], rate = rt))
 
 

@@ -12,6 +12,16 @@ import os
 #===================================================================================
 class TUM_flow(World):
 
+    '''
+    Initializes a TUM object that creates all the  necessary
+    objects and geometry to start optimizing.
+
+    Needs a dict of parameters:
+        res: resolution of the simulation
+        frames: number of frames to simulate
+        optim_steps: optimization steps for tensorflow
+    '''
+
     def __init__(self, params):
         super().__init__()
 
