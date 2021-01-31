@@ -137,3 +137,6 @@ dmypy.json
 /vids
 /rendering
 
+#Numpy arrays
+.npy
+.npz
