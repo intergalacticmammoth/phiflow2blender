@@ -9,48 +9,43 @@ else:
     from phi.flow import *  # Use NumPy
     MODE = 'NumPy'
 
-import phi
+import PIL
 import matplotlib.pyplot as plt
 from phi.field.plt import plot
 import imageio
 
+# Simulation Parameters
 res = 32
 radius = 4
 
+# Create domain
 DOMAIN = Domain(x=3*res, y=2*res, boundaries = CLOSED, bounds=Box[0:300, 0:200])
 
+# Create inflows
 INFLOW_LOCATIONS = [(75, 25), (150, 25), (225, 25)]
 INFLOW = DOMAIN.scalar_grid(Sphere(center=INFLOW_LOCATIONS[0], radius=radius)) + \
          DOMAIN.scalar_grid(Sphere(center=INFLOW_LOCATIONS[1], radius=radius)) + \
          DOMAIN.scalar_grid(Sphere(center=INFLOW_LOCATIONS[2], radius=radius))
 
+# Create smoke and velocity fields
 smoke = DOMAIN.scalar_grid(0)
-velocity = inc_velocity = DOMAIN.staggered_grid(Noise())
+velocity = DOMAIN.staggered_grid(Noise())
 
-#target = imageio.imread('tum_32.png')
-#target = np.transpose(target[:,:,1])
-#target = DOMAIN.scalar_grid(target)
-
-import PIL
-
+# Set up the smoke target
 img = PIL.Image.open('tum_32.png')
 img = np.asarray(img, dtype=np.float32)
 img = img[:,:,1]
 norm = np.linalg.norm(img)
 img = 100*img/norm
 img = math.tensor(img, names='y, x')
-
-#target = imageio.imread('tum_32.png')
-#target = target[:,:,0]
-#target = np.flip(target)
-#target = target[:,::-1]
-#target = math.tensor(target, names='y, x')
-#target = math.cast(target, math.DType(float, 32))
 target = DOMAIN.scalar_grid(img)
+
+# Check its read as a torch tensor
 print(type(target.values.native()))
 
 step = 0
 
+# Simulate and optimize
 for _ in range(100):
     with math.record_gradients(velocity.values):
         smoke = advect.mac_cormack(smoke, velocity, dt=1) + INFLOW
@@ -64,5 +59,6 @@ for _ in range(100):
 
     velocity -= DOMAIN.staggered_grid(grad)
 
+# Check result
 fig, axes = plot(smoke, title='Smoke')
 plt.show()
