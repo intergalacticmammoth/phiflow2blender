@@ -1,3 +1,4 @@
+'''
 import sys
 if 'tf' in sys.argv:
     from phi.tf.flow import *
@@ -8,18 +9,18 @@ elif 'torch' in sys.argv:
 else:
     from phi.flow import *  # Use NumPy
     MODE = 'NumPy'
-
+'''
+from phi.torch.flow import *
 import PIL
 import matplotlib.pyplot as plt
 from phi.field.plt import plot
-import imageio
 
 # Simulation Parameters
 res = 32
 radius = 4
 
 # Create domain
-DOMAIN = Domain(x=3*res, y=2*res, boundaries = CLOSED, bounds=Box[0:300, 0:200])
+DOMAIN = Domain(x=3*res, y=2*res, boundaries = OPEN, bounds=Box[0:300, 0:200])
 
 # Create inflows
 INFLOW_LOCATIONS = [(75, 25), (150, 25), (225, 25)]
@@ -27,8 +28,10 @@ INFLOW = DOMAIN.scalar_grid(Sphere(center=INFLOW_LOCATIONS[0], radius=radius)) +
          DOMAIN.scalar_grid(Sphere(center=INFLOW_LOCATIONS[1], radius=radius)) + \
          DOMAIN.scalar_grid(Sphere(center=INFLOW_LOCATIONS[2], radius=radius))
 
+
 # Create smoke and velocity fields
 smoke = DOMAIN.scalar_grid(0)
+pred_smoke = DOMAIN.scalar_grid(0)
 velocity = DOMAIN.staggered_grid(Noise())
 
 # Set up the smoke target
@@ -43,22 +46,41 @@ target = DOMAIN.scalar_grid(img)
 # Check its read as a torch tensor
 print(type(target.values.native()))
 
-step = 0
+#step = 0
 
-# Simulate and optimize
-for _ in range(100):
-    with math.record_gradients(velocity.values):
+def simulate( smoke: CenteredGrid, velocity: StaggeredGrid):
+    step = 0
+    for _ in range(50):
         smoke = advect.mac_cormack(smoke, velocity, dt=1) + INFLOW
         buoyancy_force = smoke * (0, 0.5) >> velocity
         velocity = advect.semi_lagrangian(velocity, velocity, dt=1) * buoyancy_force
         velocity, _, _, _ = fluid.make_incompressible(velocity, DOMAIN)
-        loss = field.l2_loss(diffuse.explicit(smoke - target, 1, 1, 10))
-        grad = math.gradients(loss)
         step+=1
-        print('Solving step: ', step, '\tloss: ', loss)
+        print('Solving step: ', step)
 
-    velocity -= DOMAIN.staggered_grid(grad)
+    loss = field.l2_loss(diffuse.explicit(smoke - target, 1, 1, 10))
+    print('Loss: ', loss)
+
+    return loss, smoke, velocity
+
+initial_smoke = DOMAIN.scalar_grid(math.zeros(inflow_loc=1))
+initial_velocity = DOMAIN.staggered_grid(0) * math.ones(inflow_loc=1)
+
+sim_grad = field.functional_gradient(simulate, wrt=[1], get_output=True)
+
+loss, sm, vel, vel_grad  = sim_grad(initial_smoke, initial_velocity)
+
+
+plot(sm)
+plt.show()
+
+plot(vel)
+plt.show()
+
+plot(vel_grad)
+plt.show()
+
 
 # Check result
-fig, axes = plot(smoke, title='Smoke')
-plt.show()
+#fig, axes = plot(smoke, title='Smoke')
+#plt.show()
