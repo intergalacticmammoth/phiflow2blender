@@ -11,4 +11,5 @@ This repo aims to demonstrate a pipeline for creating a fluid simulation in phif
 ## Dependencies:
 
  - phiflow 2.0
+ - mantaflow
  - Blender >= 2.91
