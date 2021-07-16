@@ -1,4 +1,4 @@
-# A Simple Phi-flow Tutorial
+# phiflow2blender Tutorial
 
 This repo aims to demonstrate a pipeline for creating a fluid simulation in phiflow and rendering the result in Blender.
 
