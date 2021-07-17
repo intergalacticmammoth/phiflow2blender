@@ -2,8 +2,7 @@ import os
 from argparse import ArgumentParser
 import numpy as np
 from phi.flow import *
-
-# from manta import *
+from manta  import *
 
 ########################
 # ----Argument Parser----
@@ -65,15 +64,12 @@ output_dir = input_dir + "post_process/"
 if not os.path.exists(input_dir):
     raise ValueError(f"{input_dir} does not exist, choose a sim that exists.")
 
-
 if args.output is not None:
     output_dir = args.output + "/"
-
 
 save_dir = output_dir + "data/"
 if not os.path.exists(save_dir):
     os.makedirs(save_dir)
-
 
 ################################
 # ---- Save .npz to OpenVDB format ----
@@ -96,8 +92,7 @@ for fn in vel_files:
     print("Reading " + fn)
     a = np.load(fn)["data"]
     b = a[:-1:, :-1, :-1, ::]  # crop, and flip XYZ vel channels again!
-    print(b.shape)
-    # compute vorticity magnitude to be displayed
+
     copyArrayToGridMAC(target=gV, source=b)
     computeVorticity(gV, vort, vortn)
 
