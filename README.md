@@ -3,11 +3,14 @@
 This repo aims to demonstrate a pipeline for creating a fluid simulation in phiflow and rendering the result in Blender.
 
 ## Workflow
-1. Write a phiflow simulation and save the resulting frames as compressed numpy arrays (.npz).
-2. Process the frames in mantaflow and output them in OpenVDB format.
+1. Write a phiflow simulation and save the resulting frames as compressed numpy arrays (.npz). For example, see [plume.py](tutorial/plume.py)
+2. Process the frames in mantaflow and output them in OpenVDB format. You have to run mantaflow and the [manta2vdb.py](tutorial/manta2vdb.py) script, with the
+necessary arguments, i.e. the input data and the X, Y and Z resolution of the simulation. 
+    `./path/to/manta path/to/manta2vdb.py -d path/to/scene/data -res X Y Z `
+
 3. Load the OpenVDB frame sequence in Blender, setup the scene in Blender and render!
     Follow along [this]() video :)
-    1. Open [this file]() in Blender. Load the .vdb files.
+    1. Open [this file](tutorial/scene.blend) in Blender. Load the .vdb files.
     2. Select the volume object and go to the Object Data Properties tab. There you will see the available grids. This you will have toput
     in the "Density Attribute" of the smoke material.
     3. Edit the material to your liking.

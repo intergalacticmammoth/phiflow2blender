@@ -19,7 +19,7 @@ smoke = CenteredGrid(0, extrapolation.BOUNDARY, **DOMAIN)
 total_time = 0
 
 #Time stepping
-for step in range(50):
+for step in range(100):
 
     start = time.time()
     smoke = advect.mac_cormack(smoke, velocity, dt=T_STEP) + INFLOW
