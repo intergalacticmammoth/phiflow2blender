@@ -58,7 +58,7 @@ for dirpath, dirnames, filenames in os.walk(input_dir):
             if "smoke" in file:
                 smoke_files.append(full_data_file)
 
-# convert velocity to vorticity and save to OpenVDB
+# save velocity and vorticity to OpenVDB
 for file_name in vel_files:
     data = np.load(file_name)["data"]
     data = data[:-1:, :-1, :-1, ::]  # crop, and flip XYZ vel channels again!
@@ -71,7 +71,8 @@ for file_name in vel_files:
     copyArrayToGridReal(target=vortn, source=vn)
 
     # write vdb file
-    vortn.save(output_dir.__str__() + f"/{file_name.split('.')[0].rsplit('/')[-1]}.vdb")
+    gV.save(output_dir.__str__() + f"/{file_name.split('.')[0].rsplit('/')[-1]}.vdb")
+    vortn.save(output_dir.__str__() + f"/{file_name.split('.')[0].rsplit('/')[-1]}.vdb".replace("velocity", "vorticity"))
 
 # save smoke to OpenVDB
 for file_name in smoke_files:

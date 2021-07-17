@@ -7,18 +7,18 @@ RADIUS = 2
 T_STEP = 1
 DOMAIN = dict(x=RES, y=RES, z=RES)
 
+#choose where to save the resulting frames
 SCENE_PATH = "/home/teemps/FILES/UNI/TUM/HiWi-Thurey/TUM_Logo/tum-logo/tutorial/test"
 scene = Scene(SCENE_PATH)
 
 #The center's coordinates are in relation to the BOX not the resolution.
-INFLOW = CenteredGrid(Sphere(center=(8, 8, 8), radius=RADIUS), extrapolation.BOUNDARY, **DOMAIN) * 0.2
+INFLOW = CenteredGrid(Sphere(center=(8, 16, 16), radius=RADIUS), extrapolation.BOUNDARY, **DOMAIN) * 0.2
 velocity = StaggeredGrid(Noise(scale=1), extrapolation.ZERO, **DOMAIN)  # or use CenteredGrid
 smoke = CenteredGrid(0, extrapolation.BOUNDARY, **DOMAIN)
 
 total_time = 0
 
 #Time stepping
-# for step in view(smoke, velocity, play=False).range(warmup=1):
 for step in range(50):
 
     start = time.time()
