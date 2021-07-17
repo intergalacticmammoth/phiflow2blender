@@ -143,3 +143,6 @@ dmypy.json
 #Numpy arrays
 *.npy
 *.npz
+
+#OpenVDB files
+*.vdb
