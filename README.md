@@ -22,9 +22,9 @@ necessary arguments, i.e. the input data and the X, Y and Z resolution of the si
 
 ## Dependencies:
 
- - phiflow 2.0
- - mantaflow
- - Blender >= 2.91
+ - [phiflow 2.0](https://github.com/tum-pbs/PhiFlow#installation)
+ - [mantaflow](http://mantaflow.com/install.html)
+ - [Blender >= 2.91](https://www.blender.org/download/)
 
 
 
