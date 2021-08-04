@@ -1,3 +1,9 @@
+##############################################
+# Example of a 3D fluid simulation with phiflow - https://github.com/tum-pbs/PhiFlow
+# It creates a simple plume.
+# Author: Aristotelis
+# Date: 02 Aug 2021
+#############################################
 from phi.flow import *
 import time
 
@@ -6,6 +12,7 @@ RES = 32
 RADIUS = 2
 T_STEP = 1
 DOMAIN = dict(x=RES, y=RES, z=RES)
+NUM_FRAMES = 250
 
 #choose where to save the resulting frames
 SCENE_PATH = "/home/teemps/FILES/UNI/TUM/HiWi-Thurey/TUM_Logo/tum-logo/tutorial/test"
@@ -19,7 +26,7 @@ smoke = CenteredGrid(0, extrapolation.BOUNDARY, **DOMAIN)
 total_time = 0
 
 #Time stepping
-for step in range(100):
+for step in range(NUM_FRAMES):
 
     start = time.time()
     smoke = advect.mac_cormack(smoke, velocity, dt=T_STEP) + INFLOW

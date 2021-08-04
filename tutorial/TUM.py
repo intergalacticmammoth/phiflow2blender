@@ -1,12 +1,21 @@
+##############################################
+# Example of a 3D fluid simulation with phiflow - https://github.com/tum-pbs/PhiFlow
+# It creates a 3D TUM logo.
+# Author: Aristotelis
+# Date: 02 Aug 2021
+############################################# 
+
 from phi.flow import *
 import time 
 
-RES = 32
+RES = 64
 RADIUS = 2
 T_STEP = 1
 DOMAIN = dict(x=2*RES, y=RES, z=3*RES)
+NUM_FRAMES = 500
 
-SCENE_PATH = "/home/teemps/FILES/UNI/TUM/HiWi-Thurey/TUM_Logo/tum-logo/tutorial/TUM"
+#TODO: Change this path to where you want to save the simulation data
+SCENE_PATH = "/home/teemps/FILES/UNI/TUM/HiWi-Thurey/TUM_Logo/tum-logo/tutorial/TUM64"
 scene = Scene(SCENE_PATH)
 
 
@@ -34,14 +43,14 @@ smoke = CenteredGrid(0, extrapolation.BOUNDARY, **DOMAIN)
 
 total_time = 0
 
-for step in range(500):
+for step in range(NUM_FRAMES):
 
     start = time.time()
     smoke = advect.mac_cormack(smoke, velocity, dt=T_STEP) + INFLOW
     buoyancy_force = smoke * (0.1, 0, 0) >> velocity  # resamples smoke to velocity sample points
     velocity = advect.semi_lagrangian(velocity, velocity, 1) + buoyancy_force
     with math.SolveTape() as solves:
-        velocity, pressure = fluid.make_incompressible(velocity, (OBSTACLE,), Solve('CG-adaptive', 1e-5, 0, x0=None))
+        velocity, pressure = fluid.make_incompressible(velocity, (OBSTACLE,), Solve('CG-adaptive', 1e-5, 0, max_iterations=1500, x0=None))
     scene.write({'smoke': smoke, 'velocity': velocity}, frame = step )
     end = time.time()
 
