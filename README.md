@@ -4,8 +4,9 @@ This repo aims to demonstrate a pipeline for creating a smoke simulation in [phi
 
 ## Workflow
 1. Write a phiflow simulation and save the resulting frames as compressed numpy arrays (.npz). For example, see [plume.py](tutorial/plume.py)
-2. Process the frames in mantaflow and output them in OpenVDB format. You have to run mantaflow and the [manta2vdb.py](tutorial/manta2vdb.py) script, with the
-necessary arguments, i.e. the input data and the X, Y and Z resolution of the simulation. 
+2. Process the frames in mantaflow and output them in OpenVDB format. You have to run the [manta2vdb.py](tutorial/manta2vdb.py) script using mantaflow, with the
+necessary arguments, i.e. the input data and the X, Y and Z resolution of the simulation. This script assumes you have a scalar field named "smoke" and a vector
+field named "velocity". You can tweak this to your needs.
     
 `./path/to/manta path/to/manta2vdb.py -d path/to/scene/data -res X Y Z `
 
