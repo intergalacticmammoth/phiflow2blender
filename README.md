@@ -6,7 +6,7 @@ This repo aims to demonstrate a pipeline for creating a smoke simulation in
 
 This is the final result we will produce:
 
-![Final Result](readme_media/blue_white_pingpong.gif)
+![Final Result](readme_media/blue_white.gif)
 
 Looks cool right? Let's dive into it!
 
