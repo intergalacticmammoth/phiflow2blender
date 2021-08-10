@@ -1,8 +1,7 @@
 # phiflow2blender Tutorial
 
 This repo aims to demonstrate a pipeline for creating a smoke simulation in 
-[phiflow](https://github.com/tum-pbs/PhiFlow) and rendering the result in 
-[Blender](https://www.blender.org/). 
+[phiflow](https://github.com/tum-pbs/PhiFlow) and rendering the result in [Blender](https://www.blender.org/). 
 
 This is the final result we will produce:
 
@@ -25,6 +24,8 @@ field named "velocity". You can tweak this to your needs.
 3. Load the OpenVDB frame sequence in Blender, setup the scene in Blender and render!
    
    Follow along [this]() video :)
+
+The resulting file from the video is [tutorial_video.blend](tutorial/tutorial_video.blend) and the file I used for the final version is [final.blend](tutorial/final.blend).
 
 
 
