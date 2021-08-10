@@ -1,23 +1,30 @@
 # phiflow2blender Tutorial
 
-This repo aims to demonstrate a pipeline for creating a smoke simulation in [phiflow](https://github.com/tum-pbs/PhiFlow) and rendering the result in [Blender](https://www.blender.org/).
+This repo aims to demonstrate a pipeline for creating a smoke simulation in 
+[phiflow](https://github.com/tum-pbs/PhiFlow) and rendering the result in 
+[Blender](https://www.blender.org/). 
+
+This is the final result we will produce:
+
+![Final Result](readme_media/blue_white_pingpong.gif)
+
+Looks cool right? Let's dive into it!
 
 ## Workflow
-1. Write a phiflow simulation and save the resulting frames as compressed numpy arrays (.npz). For example, see [plume.py](tutorial/plume.py)
-2. Process the frames in mantaflow and output them in OpenVDB format. You have to run the [manta2vdb.py](tutorial/manta2vdb.py) script using mantaflow, with the
-necessary arguments, i.e. the input data and the X, Y and Z resolution of the simulation. This script assumes you have a scalar field named "smoke" and a vector
+1. Write a phiflow simulation and save the resulting frames as compressed 
+numpy arrays (.npz). For example, see [plume.py](tutorial/plume.py)
+2. Process the frames in mantaflow and output them in OpenVDB format. 
+You have to run the [manta2vdb.py](tutorial/manta2vdb.py) script using mantaflow, 
+with the necessary arguments, i.e. the input data and the X, Y and Z resolution of the simulation. 
+
+**IMPORTANT**: This script assumes your simulation has a scalar field named "smoke" and a vector
 field named "velocity". You can tweak this to your needs.
     
 `./path/to/manta path/to/manta2vdb.py -d path/to/scene/data -res X Y Z `
 
 3. Load the OpenVDB frame sequence in Blender, setup the scene in Blender and render!
-    Follow along [this]() video :)
-    1. Open [this file](tutorial/scene.blend) in Blender. Load the .vdb files.
-    2. Select the volume object and go to the Object Data Properties tab. There you will see the available grids. This you will have toput
-    in the "Density Attribute" of the smoke material.
-    3. Edit the material to your liking.
-    4. Adjust the camera and render settings.
-    5. Render! 
+   
+   Follow along [this]() video :)
 
 
 
