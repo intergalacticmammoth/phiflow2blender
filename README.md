@@ -11,14 +11,14 @@ Looks cool right? Let's dive into it!
 
 ## Workflow
 1. Write a phiflow simulation and save the resulting frames as compressed 
-numpy arrays (.npz). For example, see [plume.py](tutorial/plume.py)
+numpy arrays (.npz). For example, see [plume.py](tutorial/plume.py) or [TUM.py](tutorial/TUM.py)
 2. Process the frames in mantaflow and output them in OpenVDB format. 
 You have to run the [manta2vdb.py](tutorial/manta2vdb.py) script using mantaflow, 
 with the necessary arguments, i.e. the input data and the X, Y and Z resolution of the simulation. 
 
 **IMPORTANT**: This script assumes your simulation has a scalar field named "smoke" and a vector
 field named "velocity". You can tweak this to your needs.
-    
+
 `./path/to/manta path/to/manta2vdb.py -d path/to/scene/data -res X Y Z `
 
 3. Load the OpenVDB frame sequence in Blender, setup the scene in Blender and render!
