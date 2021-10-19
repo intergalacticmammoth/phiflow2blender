@@ -35,4 +35,4 @@ The resulting file from the video is [tutorial_video.blend](tutorial/tutorial_vi
  - [mantaflow](http://mantaflow.com/install.html)
  - [Blender >= 2.91](https://www.blender.org/download/)
 
-The [legacy](legacy/) folder contains various tests and scripts that were created along the journey, but are not directly relevant anymore. They're not the prettiest code you'll see, but feel free to explore them.
+
